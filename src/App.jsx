@@ -36,6 +36,7 @@ function App() {
         <ul>
           {tasks.map((task, index) => (
             <li key={index}>
+              <input type="checkbox" value="task" />
               <input value={task} readOnly />
               <button
                 type="button"
@@ -47,7 +48,9 @@ function App() {
             </li>
           ))}
         </ul>
-        <h4>You have {tasks.length} tasks</h4>
+        <h4>You have tasks: {tasks.length}</h4>
+        //<h4>Сompleted tasks: </h4>
+        //<h4>Tasks left: </h4>
       </>
     </>
   );
