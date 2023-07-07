@@ -7,6 +7,7 @@ function App() {
 
   const addTask = () => {
     setTasks([...tasks, newTask]);
+    setNewTask('');
   };
 
   const deleteTask = (index) => {
@@ -35,7 +36,7 @@ function App() {
         <ul>
           {tasks.map((task, index) => (
             <li key={index}>
-              <input value={task} />
+              <input value={task} readOnly />
               <button
                 type="button"
                 name="delete-task"
