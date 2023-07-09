@@ -6,8 +6,12 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [classNameOfTask, setclassNameOfTask] = useState('unchecked');
 
+  const generateId = () => {
+    return Math.trunc(Math.random() * 1000).toString();
+  };
+
   const addTask = () => {
-    setTasks([newTask, ...tasks]);
+    setTasks([{ id: generateId(), text: newTask }, ...tasks]);
     setNewTask('');
   };
 
@@ -41,14 +45,19 @@ function App() {
       <h2>Tasks list:</h2>
       <>
         <ul>
-          {tasks.map((task, index) => (
-            <li key={index} className={classNameOfTask}>
+          {tasks.map((task) => (
+            <li key={task.id} className={classNameOfTask}>
               <input type="checkbox" onClick={() => strikethroughDoneTask()} />
-              <input type="text" value={task} style={lineThrough} readOnly />
+              <input
+                type="text"
+                value={task.text}
+                style={lineThrough}
+                readOnly
+              />
               <button
                 type="button"
                 name="delete-task"
-                onClick={() => deleteTask(index)}
+                onClick={() => deleteTask(task.id)}
               >
                 Delete
               </button>
