@@ -4,23 +4,24 @@ import './App.css';
 function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
-  const [classNameOfTask, setclassNameOfTask] = useState('unchecked');
 
   const generateId = () => {
     return Math.trunc(Math.random() * 1000).toString();
   };
 
   const addTask = () => {
-    setTasks([{ id: generateId(), text: newTask }, ...tasks]);
+    setTasks([{ id: generateId(), text: newTask, done: false }, ...tasks]);
     setNewTask('');
   };
 
-  const strikethroughDoneTask = () => {
-    setclassNameOfTask('checked');
-  };
-
-  const lineThrough = {
-    textDecoration: classNameOfTask === 'checked' ? 'line-through' : 'none',
+  const strikethroughDoneTask = (taskId) => {
+    const updateTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, done: !task.done };
+      }
+      return task;
+    });
+    setTasks(updateTasks);
   };
 
   const deleteTask = (taskId) => {
@@ -45,12 +46,16 @@ function App() {
       <>
         <ul>
           {tasks.map((task) => (
-            <li key={task.id} className={classNameOfTask}>
-              <input type="checkbox" onClick={() => strikethroughDoneTask()} />
+            <li key={task.id}>
+              <input
+                type="checkbox"
+                checked={task.done}
+                onChange={() => strikethroughDoneTask(task.id)}
+              />
               <input
                 type="text"
                 value={task.text}
-                style={lineThrough}
+                style={task.done ? { textDecoration: 'line-through' } : {}}
                 readOnly
               />
               <button
