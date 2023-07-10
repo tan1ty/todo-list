@@ -23,9 +23,8 @@ function App() {
     textDecoration: classNameOfTask === 'checked' ? 'line-through' : 'none',
   };
 
-  const deleteTask = (index) => {
-    const tasksWithoutDeleted = [...tasks];
-    tasksWithoutDeleted.splice(index, 1);
+  const deleteTask = (taskId) => {
+    const tasksWithoutDeleted = tasks.filter((task) => task.id !== taskId);
     setTasks(tasksWithoutDeleted);
   };
 
