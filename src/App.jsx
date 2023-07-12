@@ -5,12 +5,8 @@ function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
 
-  const generateId = () => {
-    return Math.trunc(Math.random() * 1000).toString();
-  };
-
   const addTask = () => {
-    setTasks([{ id: generateId(), text: newTask, done: false }, ...tasks]);
+    setTasks([{ id: new Date(), text: newTask, done: false }, ...tasks]);
     setNewTask('');
   };
 
@@ -58,6 +54,7 @@ function App() {
                 style={task.done ? { textDecoration: 'line-through' } : {}}
                 readOnly
               />
+
               <button
                 type="button"
                 name="delete-task"
