@@ -6,7 +6,10 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   const addTask = () => {
+<<<<<<< HEAD
     setTasks([{ id: new Date(), text: newTask, done: false }, ...tasks]);
+=======
+>>>>>>> 96c14d1 (add editing tasks)
     setTasks([
       { id: new Date().toString(), text: newTask, done: false },
       ...tasks,
