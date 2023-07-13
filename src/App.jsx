@@ -6,7 +6,11 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   const addTask = () => {
-    setTasks([{ id: new Date().toString(), text: newTask, done: false }, ...tasks]);
+    setTasks([{ id: new Date(), text: newTask, done: false }, ...tasks]);
+    setTasks([
+      { id: new Date().toString(), text: newTask, done: false },
+      ...tasks,
+    ]);
     setNewTask('');
   };
 
@@ -14,6 +18,16 @@ function App() {
     const updateTasks = tasks.map((task) => {
       if (task.id === taskId) {
         return { ...task, done: !task.done };
+      }
+      return task;
+    });
+    setTasks(updateTasks);
+  };
+
+  const editTask = (taskId, updatedTask) => {
+    const updateTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, text: updatedTask };
       }
       return task;
     });
@@ -52,7 +66,7 @@ function App() {
                 type="text"
                 value={task.text}
                 style={task.done ? { textDecoration: 'line-through' } : {}}
-                readOnly
+                onChange={(event) => editTask(task.id, event.target.value)}
               />
 
               <button
