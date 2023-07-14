@@ -48,6 +48,14 @@ function App() {
     setTasks(tasksWithoutDeleted);
   };
 
+  const countDoneTasks = () => {
+    let counter = 0;
+    tasks.map((task) => {
+      if (task.done === true) counter++;
+    });
+    return counter;
+  };
+
   return (
     <>
       <h1>ToDo List</h1>
@@ -117,6 +125,8 @@ function App() {
           ))}
         </ul>
         <h4>You have tasks: {tasks.length}</h4>
+        <h4>Done tasks: {countDoneTasks()}</h4>
+        <h4>Tasks left: {tasks.length - countDoneTasks()}</h4>
       </>
     </>
   );
