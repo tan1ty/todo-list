@@ -90,7 +90,7 @@ function App() {
                   type="text"
                   value={task.text}
                   ref={inputRef}
-                  style={task.done ? { textDecoration: 'line-through' } : {}}
+                  className={task.done ? 'task-done' : ''}
                   onChange={(event) => editTask(task.id, event.target.value)}
                 />
               ) : (
