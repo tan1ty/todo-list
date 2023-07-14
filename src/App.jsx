@@ -83,7 +83,7 @@ function App() {
                 <input
                   type="text"
                   value={task.text}
-                  style={task.done ? { textDecoration: 'line-through' } : {}}
+                  className={task.done ? 'task-done' : ''}
                   readOnly
                 />
               )}
