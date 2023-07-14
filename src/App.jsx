@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './App.css';
 
 function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
+  const inputRef = useRef(null);
 
   const addTask = () => {
     setTasks([
@@ -48,6 +49,10 @@ function App() {
     setTasks(tasksWithoutDeleted);
   };
 
+  const handleClick = () => {
+    inputRef.current.focus();
+  };
+
   const countDoneTasks = () => {
     let counter = 0;
     tasks.map((task) => {
@@ -84,6 +89,7 @@ function App() {
                 <input
                   type="text"
                   value={task.text}
+                  ref={inputRef}
                   style={task.done ? { textDecoration: 'line-through' } : {}}
                   onChange={(event) => editTask(task.id, event.target.value)}
                 />
@@ -100,7 +106,10 @@ function App() {
                 <button
                   type="button"
                   name="edit-task"
-                  onClick={() => toggleEdit(task.id)}
+                  onClick={() => {
+                    toggleEdit(task.id);
+                    handleClick();
+                  }}
                 >
                   Edit
                 </button>
