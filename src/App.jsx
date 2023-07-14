@@ -7,7 +7,7 @@ function App() {
 
   const addTask = () => {
     setTasks([
-      { id: new Date().toString(), text: newTask, done: false },
+      { id: new Date().toString(), text: newTask, done: false, edit: false },
       ...tasks,
     ]);
     setNewTask('');
@@ -31,6 +31,16 @@ function App() {
       return task;
     });
     setTasks(updateTasks);
+  };
+
+  const toggleEdit = (taskId) => {
+    const editedTask = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, edit: !task.edit };
+      }
+      return task;
+    });
+    setTasks(editedTask);
   };
 
   const deleteTask = (taskId) => {
@@ -61,12 +71,40 @@ function App() {
                 checked={task.done}
                 onChange={() => strikethroughDoneTask(task.id)}
               />
-              <input
-                type="text"
-                value={task.text}
-                style={task.done ? { textDecoration: 'line-through' } : {}}
-                onChange={(event) => editTask(task.id, event.target.value)}
-              />
+
+              {task.edit ? (
+                <input
+                  type="text"
+                  value={task.text}
+                  style={task.done ? { textDecoration: 'line-through' } : {}}
+                  onChange={(event) => editTask(task.id, event.target.value)}
+                />
+              ) : (
+                <input
+                  type="text"
+                  value={task.text}
+                  style={task.done ? { textDecoration: 'line-through' } : {}}
+                  readOnly
+                />
+              )}
+
+              {task.edit === false ? (
+                <button
+                  type="button"
+                  name="edit-task"
+                  onClick={() => toggleEdit(task.id)}
+                >
+                  Edit
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  name="save-task"
+                  onClick={() => toggleEdit(task.id)}
+                >
+                  Save
+                </button>
+              )}
 
               <button
                 type="button"
