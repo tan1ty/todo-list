@@ -49,8 +49,8 @@ function App() {
     setTasks(tasksWithoutDeleted);
   };
 
-  const handleClick = () => {
-    inputRef.current.focus();
+  const inputFocus = (taskId) => {
+    inputRef.current.focus(taskId);
   };
 
   const countDoneTasks = () => {
@@ -90,7 +90,6 @@ function App() {
                   type="text"
                   value={task.text}
                   ref={inputRef}
-                  className={task.done ? 'task-done' : ''}
                   onChange={(event) => editTask(task.id, event.target.value)}
                 />
               ) : (
@@ -108,7 +107,7 @@ function App() {
                   name="edit-task"
                   onClick={() => {
                     toggleEdit(task.id);
-                    handleClick();
+                    inputFocus(task.id);
                   }}
                 >
                   Edit
