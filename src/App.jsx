@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 
 function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
-  const inputRef = useRef(null);
+  const inputRefs = useRef([]);
 
   const addTask = () => {
     setTasks([
@@ -49,14 +49,32 @@ function App() {
     setTasks(tasksWithoutDeleted);
   };
 
-  const inputFocus = (taskId) => {
-    inputRef.current.focus(taskId);
+  const createInputRef = (taskId) => {
+    const inputRef = React.createRef();
+    inputRefs.current.push({ id: taskId, ref: inputRef });
+    return inputRef;
   };
+
+  const focusInput = (ref) => {
+    if (ref && ref.current) {
+      ref.current.focus();
+    }
+  };
+
+  useEffect(() => {
+    inputRefs.current.forEach((refObj) => {
+      if (refObj.id === tasks[tasks.length - 1]?.id) {
+        focusInput(refObj.refObj);
+      }
+    });
+  }, [tasks]);
 
   const countDoneTasks = () => {
     let counter = 0;
     tasks.map((task) => {
-      if (task.done === true) counter++;
+      if (task.done === true) {
+        counter++;
+      }
     });
     return counter;
   };
@@ -89,8 +107,9 @@ function App() {
                 <input
                   type="text"
                   value={task.text}
-                  ref={inputRef}
                   onChange={(event) => editTask(task.id, event.target.value)}
+                  ref={createInputRef(task.id)}
+                  onFocus={(e) => e.currentTarget.select()}
                 />
               ) : (
                 <input
@@ -107,7 +126,10 @@ function App() {
                   name="edit-task"
                   onClick={() => {
                     toggleEdit(task.id);
-                    inputFocus(task.id);
+                    focusInput(
+                      inputRefs.current.find((refObj) => refObj.id === task.id)
+                        ?.ref
+                    );
                   }}
                 >
                   Edit
