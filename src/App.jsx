@@ -4,7 +4,14 @@ import './App.css';
 function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
-  const inputRefs = useRef([]);
+  const inputRef = useRef(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  useEffect(() => {
+    if (isFocused && inputRef.current.focus) {
+      inputRef.current.focus();
+    }
+  }, [isFocused]);
 
   const addTask = () => {
     setTasks([
@@ -49,26 +56,6 @@ function App() {
     setTasks(tasksWithoutDeleted);
   };
 
-  const createInputRef = (taskId) => {
-    const inputRef = React.createRef();
-    inputRefs.current.push({ id: taskId, ref: inputRef });
-    return inputRef;
-  };
-
-  const focusInput = (ref) => {
-    if (ref && ref.current) {
-      ref.current.focus();
-    }
-  };
-
-  useEffect(() => {
-    inputRefs.current.forEach((refObj) => {
-      if (refObj.id === tasks[tasks.length - 1]?.id) {
-        focusInput(refObj.refObj);
-      }
-    });
-  }, [tasks]);
-
   const countDoneTasks = () => {
     let counter = 0;
     tasks.map((task) => {
@@ -108,8 +95,7 @@ function App() {
                   type="text"
                   value={task.text}
                   onChange={(event) => editTask(task.id, event.target.value)}
-                  ref={createInputRef(task.id)}
-                  onFocus={(e) => e.currentTarget.select()}
+                  ref={inputRef}
                 />
               ) : (
                 <input
@@ -126,10 +112,7 @@ function App() {
                   name="edit-task"
                   onClick={() => {
                     toggleEdit(task.id);
-                    focusInput(
-                      inputRefs.current.find((refObj) => refObj.id === task.id)
-                        ?.ref
-                    );
+                    setIsFocused(!isFocused);
                   }}
                 >
                   Edit
@@ -138,7 +121,10 @@ function App() {
                 <button
                   type="button"
                   name="save-task"
-                  onClick={() => toggleEdit(task.id)}
+                  onClick={() => {
+                    toggleEdit(task.id);
+                    setIsFocused(!isFocused);
+                  }}
                 >
                   Save
                 </button>
