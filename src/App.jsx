@@ -10,6 +10,7 @@ function App() {
   useEffect(() => {
     if (isFocused && inputRef.current.focus) {
       inputRef.current.focus();
+      inputRef.current.select();
     }
   }, [isFocused]);
 
