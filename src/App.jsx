@@ -114,7 +114,7 @@ function App() {
                   setIsFocused(!isFocused);
                 }}
               >
-                {task.edit === false ? 'Edit' : 'Save'}
+                {task.edit ? 'Save' : 'Edit'}
               </button>
 
               <button
