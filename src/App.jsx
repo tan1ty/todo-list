@@ -106,29 +106,16 @@ function App() {
                 />
               )}
 
-              {task.edit === false ? (
-                <button
-                  type="button"
-                  name="edit-task"
-                  onClick={() => {
-                    toggleEdit(task.id);
-                    setIsFocused(!isFocused);
-                  }}
-                >
-                  Edit
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  name="save-task"
-                  onClick={() => {
-                    toggleEdit(task.id);
-                    setIsFocused(!isFocused);
-                  }}
-                >
-                  Save
-                </button>
-              )}
+              <button
+                type="button"
+                name="edit-task"
+                onClick={() => {
+                  toggleEdit(task.id);
+                  setIsFocused(!isFocused);
+                }}
+              >
+                {task.edit === false ? 'Edit' : 'Save'}
+              </button>
 
               <button
                 type="button"
