@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import TaskStatistics from './TaskStatistics';
 import './App.css';
 
 function App() {
@@ -55,16 +56,6 @@ function App() {
   const deleteTask = (taskId) => {
     const tasksWithoutDeleted = tasks.filter((task) => task.id !== taskId);
     setTasks(tasksWithoutDeleted);
-  };
-
-  const countDoneTasks = () => {
-    let counter = 0;
-    tasks.map((task) => {
-      if (task.done === true) {
-        counter++;
-      }
-    });
-    return counter;
   };
 
   return (
@@ -128,9 +119,7 @@ function App() {
             </li>
           ))}
         </ul>
-        <h4>You have tasks: {tasks.length}</h4>
-        <h4>Done tasks: {countDoneTasks()}</h4>
-        <h4>Tasks left: {tasks.length - countDoneTasks()}</h4>
+        <TaskStatistics tasks={tasks} />
       </>
     </>
   );
