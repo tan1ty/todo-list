@@ -9,10 +9,10 @@ function DeleteButton({ task, tasks, setTasks }) {
   return (
     <button
       type="button"
-      name="delete-task"
+      className="delete-task"
       onClick={() => handleDeleteTask(task.id)}
     >
-      Delete
+      DELETE
     </button>
   );
 }

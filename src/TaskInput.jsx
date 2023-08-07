@@ -16,15 +16,17 @@ function TaskInput({ task, tasks, setTasks, isFocused }) {
   };
 
   return (
-    <input
-      type="text"
-      value={value}
-      onBlur={handleBlur}
-      onChange={handleChange}
-      disabled={!task.edit}
-      className={task.done ? 'task-done' : ''}
-      ref={inputRef}
-    />
+    <div id="task-from-tasks">
+      <input
+        type="text"
+        value={value}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        disabled={!task.edit}
+        className={task.done ? 'task-input-done' : 'task-input'}
+        ref={inputRef}
+      />
+    </div>
   );
 }
 

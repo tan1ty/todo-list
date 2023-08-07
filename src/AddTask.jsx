@@ -15,13 +15,13 @@ function AddTaskUtil({ tasks, setTasks }) {
     <>
       <h1>ToDo List</h1>
       <input
-        name="new-task"
+        className="new-task"
         type="text"
         value={newTask}
         placeholder="What plans?"
         onChange={(event) => setNewTask(event.target.value)}
       />
-      <button type="button" name="add-task" onClick={addTask}>
+      <button type="button" className="add-task" onClick={addTask}>
         Add task
       </button>
     </>

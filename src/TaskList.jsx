@@ -8,7 +8,7 @@ function TaskList({ tasks, setTasks }) {
   return (
     <>
       <h2>Tasks list:</h2>
-      <ul>
+      <ul className="task-list">
         {tasks.map((task) => (
           <li key={task.id}>
             <CheckBox task={task} tasks={tasks} setTasks={setTasks} />

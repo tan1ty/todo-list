@@ -10,12 +10,12 @@ function EditButton({ task, tasks, setTasks, isFocused }) {
     <>
       <button
         type="button"
-        name="edit-task"
+        className="edit-task"
         onClick={() => {
           handleToggleEdit(task.id);
         }}
       >
-        {task.edit ? 'Save' : 'Edit'}
+        {task.edit ? 'SAVE' : 'EDIT'}
       </button>
     </>
   );
